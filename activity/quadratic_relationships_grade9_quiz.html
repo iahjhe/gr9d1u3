@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quadratic Relationships | Grade 9 Mini Quiz</title>
+<style>
+:root{
+  --bg:#090909;--panel:#151515;--panel2:#202020;--line:#3b3b3b;
+  --text:#f5f5f5;--muted:#a5a5a5;--soft:#d6d6d6;--accent:#fff;
+  --shadow:0 24px 70px rgba(0,0,0,.45)
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit}
+.deck{height:100dvh;width:100%;position:relative;background:radial-gradient(circle at 75% 18%,#242424 0,transparent 35%),linear-gradient(135deg,#080808,#111)}
+.slide{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:clamp(22px,5vw,76px);overflow:auto}
+.slide.active{display:flex;animation:enter .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes enter{from{opacity:0;transform:translateY(18px) scale(.99);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+.content{width:min(1120px,100%);margin:auto}
+.kicker{font-size:clamp(12px,1.2vw,16px);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:750;margin-bottom:20px}
+h1{font-size:clamp(48px,8.4vw,112px);line-height:.98;letter-spacing:-.065em;margin:0 0 24px;font-weight:850}
+h2{font-size:clamp(34px,5vw,64px);line-height:1.04;letter-spacing:-.045em;margin:0 0 26px;font-weight:820}
+h3{font-size:clamp(23px,3vw,36px);margin:0 0 16px}
+p,.lead{font-size:clamp(19px,2.1vw,27px);line-height:1.5;color:#d0d0d0}
+.subtitle{font-size:clamp(21px,2.5vw,32px);color:#c4c4c4;max-width:760px}
+.rule{height:5px;width:94px;background:#eee;border-radius:10px;margin:28px 0}
+.pill{display:inline-flex;border:1px solid #555;border-radius:99px;padding:9px 16px;color:#ddd;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+.tile{background:linear-gradient(145deg,#202020,#121212);border:1px solid #393939;border-radius:22px;padding:clamp(18px,2.4vw,30px);box-shadow:var(--shadow)}
+.tile strong{display:block;font-size:clamp(25px,3vw,38px);margin-bottom:8px}
+.tile span{color:var(--muted);font-size:clamp(15px,1.5vw,19px)}
+.formula{font-size:clamp(36px,6vw,76px);font-weight:800;letter-spacing:-.045em;text-align:center;padding:32px 16px;border:1px solid #454545;border-radius:24px;background:#171717;margin:26px 0}
+.question-layout{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:start}
+.q-number{font-size:14px;letter-spacing:.2em;color:#aaa;text-transform:uppercase;font-weight:800;margin-bottom:18px}
+.question{font-size:clamp(30px,4.5vw,57px);line-height:1.14;letter-spacing:-.035em;font-weight:780;margin:0 0 28px;max-width:900px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.option{display:flex;align-items:center;gap:14px;min-height:72px;padding:15px 18px;border-radius:16px;background:#171717;border:1px solid #414141;color:#eee;text-align:left;font-size:clamp(18px,2vw,25px);cursor:pointer;transition:.2s}
+.option:hover{background:#292929;border-color:#aaa;transform:translateY(-2px)}
+.option .letter{display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:50%;background:#eee;color:#111;font-weight:900;font-size:17px}
+.option.selected{border-color:#fff;background:#303030;box-shadow:0 0 0 2px #aaa inset}
+.option.correct{border-color:#fff;background:#353535}
+.option.wrong{border-color:#888;background:#242424;opacity:.75}
+.timer-card{position:sticky;top:20px;border:1px solid #484848;background:rgba(20,20,20,.9);border-radius:22px;padding:20px;text-align:center}
+.timer-label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#aaa;font-weight:800}
+.timer{font-variant-numeric:tabular-nums;font-size:clamp(36px,4vw,52px);font-weight:850;letter-spacing:-.06em;margin:10px 0}
+.timer-track{height:6px;background:#3a3a3a;border-radius:20px;overflow:hidden;margin:12px 0}
+.timer-fill{height:100%;width:100%;background:#eee;transition:width 1s linear}
+.timer-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.small-btn,.control{border:1px solid #555;background:#202020;color:#f5f5f5;border-radius:12px;padding:10px 14px;cursor:pointer;transition:.2s}
+.small-btn:hover,.control:hover{background:#383838;border-color:#aaa}
+.feedback{min-height:34px;margin-top:16px;color:#ddd;font-size:18px}
+.reveal{display:none;margin-top:14px;padding:16px 18px;border-left:4px solid #eee;background:#242424;border-radius:0 12px 12px 0;color:#eee;font-size:17px;line-height:1.5}
+.reveal.show{display:block;animation:enter .3s ease both}
+.controls{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(18px,4vw,56px);pointer-events:none;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent)}
+.controls>*{pointer-events:auto}
+.navgroup{display:flex;gap:10px}
+.control{padding:12px 17px;font-weight:700}
+.control.primary{background:#f2f2f2;color:#111;border-color:#fff}
+.control:disabled{opacity:.3;cursor:not-allowed}
+.progress-wrap{display:flex;align-items:center;gap:12px;color:#aaa;font-size:13px;font-variant-numeric:tabular-nums}
+.progress{width:min(22vw,220px);height:4px;background:#444;border-radius:10px;overflow:hidden}
+.progress>i{display:block;height:100%;width:0;background:#eee;transition:width .3s}
+.center{text-align:center}
+.center .content{max-width:900px}
+.big-number{font-size:clamp(70px,13vw,160px);font-weight:900;line-height:1;letter-spacing:-.08em;color:#fff}
+.answer-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
+.answer-item{padding:15px 18px;border:1px solid #444;background:#181818;border-radius:14px;font-size:17px;line-height:1.45}
+.answer-item b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#eee;color:#111;margin-right:8px}
+.note{font-size:15px;color:#aaa}
+.key-table{width:100%;border-collapse:collapse;margin-top:18px;font-size:clamp(14px,1.5vw,18px)}
+.key-table th,.key-table td{border-bottom:1px solid #444;padding:12px;text-align:left}
+.key-table th{color:#aaa;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
+.pattern{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.pattern span{background:#222;border:1px solid #555;border-radius:12px;padding:12px 16px;font-size:22px;font-weight:750}
+.teacher{display:none}
+.teacher.on .teacher{display:block}
+@media(max-width:760px){
+ .question-layout{grid-template-columns:1fr;gap:15px}
+ .timer-card{position:relative;top:auto;display:grid;grid-template-columns:1fr auto;align-items:center;text-align:left;padding:12px 16px}
+ .timer-card .timer{margin:0;font-size:34px}
+ .timer-card .timer-track{grid-column:1/-1;margin:4px 0}
+ .timer-actions{grid-column:1/-1;justify-content:flex-start}
+ .options,.grid,.answer-list{grid-template-columns:1fr}
+ .slide{padding:24px 20px 100px}
+ .controls{padding:12px 16px}
+ .progress-wrap{display:none}
+ .control{padding:11px 13px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+<section class="slide active center">
+ <div class="content">
+  <div class="pill">Grade 9 Mathematics · Mini Quiz</div>
+  <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+  <h1>Quadratic<br>Relationships<span style="color:#777">.</span></h1>
+  <p class="subtitle" style="margin:0 auto">From real-life curves to graphs and equations.</p>
+  <div class="grid">
+   <div class="tile"><strong>20</strong><span>Questions</span></div>
+   <div class="tile"><strong>25 min</strong><span>Quiz duration</span></div>
+   <div class="tile"><strong>30</strong><span>Total points</span></div>
+   <div class="tile"><strong>15 min</strong><span>Answer discussion</span></div>
+  </div>
+  <p class="note" style="margin-top:24px">Use the arrow keys or the buttons below to move through the presentation.</p>
+ </div>
+</section>
+<section class="slide">
+ <div class="content">
+  <div class="kicker">Before we begin</div><h2>How to take the quiz</h2>
+  <div class="grid">
+   <div class="tile"><strong>01 / Read</strong><span>Read each question and all answer choices carefully.</span></div>
+   <div class="tile"><strong>02 / Think</strong><span>Use the timer as a guide. You may pause or reset it.</span></div>
+   <div class="tile"><strong>03 / Answer</strong><span>For multiple choice, click an option to record your answer.</span></div>
+   <div class="tile"><strong>04 / Review</strong><span>Answers and explanations are available in the teacher review section.</span></div>
+  </div>
+  <p class="note">Suggested timing: 40 seconds for each multiple-choice item, 60–90 seconds for written and pattern questions.</p>
+ </div>
+</section>
+<section class="slide center">
+ <div class="content"><div class="kicker">Quick concept review</div><h2>What makes a function quadratic?</h2>
+  <div class="formula">f(x) = ax² + bx + c</div>
+  <div class="grid">
+   <div class="tile"><strong>ax²</strong><span>Quadratic term · a ≠ 0</span></div>
+   <div class="tile"><strong>bx</strong><span>Linear term</span></div>
+   <div class="tile"><strong>c</strong><span>Constant term</span></div>
+   <div class="tile"><strong>Power of 2</strong><span>Highest exponent</span></div>
+  </div>
+ </div>
+</section>
+<section class="slide center">
+ <div class="content"><div class="kicker">Quick concept review</div><h2>How do we recognize a quadratic pattern?</h2>
+  <div class="tile"><h3>First differences</h3><p>Subtract consecutive terms. They are not constant in a typical quadratic pattern.</p></div>
+  <div class="tile" style="margin-top:14px"><h3>Second differences</h3><p>If the second differences are equal, the pattern is quadratic.</p></div>
+  <p class="note">Linear patterns have constant first differences.</p>
+ </div>
+</section>
+<div id="questionSlides"></div>
+<section class="slide center">
+ <div class="content"><div class="kicker">Quiz complete</div><div class="big-number">20<span style="color:#777">/</span>20</div><h2>Well done!</h2><p>Take a short moment to check that every question has been answered. The teacher review begins next.</p><div class="pill">Teacher answer discussion · 15 minutes</div></div>
+</section>
+<section class="slide">
+ <div class="content"><div class="kicker">Teacher review · Part I</div><h2>Multiple-choice answers</h2>
+  <div class="answer-list" id="mcAnswers"></div>
+  <p class="note">Discuss why the correct option works. Ask students to explain why one tempting wrong option is incorrect.</p>
+ </div>
+</section>
+<section class="slide">
+ <div class="content"><div class="kicker">Teacher review · Part II</div><h2>Identify and classify</h2>
+  <table class="key-table"><thead><tr><th>No.</th><th>Classification</th><th>a</th><th>b</th><th>c</th></tr></thead><tbody>
+   <tr><td>11</td><td>Quadratic</td><td>4</td><td>3</td><td>5</td></tr>
+   <tr><td>12</td><td>Not quadratic (linear)</td><td>—</td><td>—</td><td>—</td></tr>
+   <tr><td>13</td><td>Quadratic</td><td>−1</td><td>7</td><td>2</td></tr>
+   <tr><td>14</td><td>Quadratic</td><td>1</td><td>4</td><td>4</td></tr>
+   <tr><td>15</td><td>Not quadratic (cubic)</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody></table>
+  <div class="tile" style="margin-top:22px"><strong>Number 14: Expand first</strong><p>(x + 2)² = (x + 2)(x + 2) = x² + 4x + 4</p><span>Therefore a = 1, b = 4, c = 4.</span></div>
+ </div>
+</section>
+<section class="slide">
+ <div class="content"><div class="kicker">Teacher review · Part III</div><h2>Analyze the patterns</h2>
+  <div class="tile"><h3>16 · Quadratic</h3><div class="pattern"><span>1st: 5, 7, 9, 11</span><span>2nd: 2, 2, 2</span></div><p>Second differences are constant, so the pattern is quadratic.</p></div>
+  <div class="tile" style="margin-top:14px"><h3>17 · Linear, not quadratic</h3><div class="pattern"><span>1st: 2, 2, 2, 2</span><span>2nd: 0, 0, 0</span></div><p>First differences are already constant, so the pattern is linear.</p></div>
+  <div class="tile" style="margin-top:14px"><h3>18 · Quadratic</h3><div class="pattern"><span>1st: 4, 6, 8, 10</span><span>2nd: 2, 2, 2</span></div><p>Second differences are constant, so the pattern is quadratic.</p></div>
+ </div>
+</section>
+<section class="slide">
+ <div class="content"><div class="kicker">Teacher review · Part IV</div><h2>Apply your understanding</h2>
+  <div class="tile"><h3>19 · Answer: B — Parabola</h3><p>A ball thrown into the air follows a curved path that can be modeled by a quadratic function. Its graph is called a parabola.</p></div>
+  <div class="tile" style="margin-top:16px"><h3>20 · Sample answer</h3><p>First, subtract consecutive terms to find the first differences. Then find the second differences. If the second differences are equal, the pattern is quadratic.</p><span>Scoring: 2 points for explaining the process and the equal-second-difference rule.</span></div>
+ </div>
+</section>
+<section class="slide center">
+ <div class="content"><div class="kicker">Remember these three rules</div><h2>Quadratic relationships</h2>
+  <div class="tile"><strong>1. Standard form</strong><p>f(x) = ax² + bx + c, where a ≠ 0.</p></div>
+  <div class="tile" style="margin-top:12px"><strong>2. Linear pattern</strong><p>Constant first differences.</p></div>
+  <div class="tile" style="margin-top:12px"><strong>3. Quadratic pattern</strong><p>Constant second differences.</p></div>
+  <p class="note" style="margin-top:24px">End of presentation · Grade 9 Mathematics</p>
+ </div>
+</section>
+</main>
+<div class="controls">
+ <div class="navgroup"><button class="control" id="prev">← Back</button><button class="control primary" id="next">Next →</button></div>
+ <div class="progress-wrap"><span id="counter">1 / 0</span><div class="progress"><i id="progressBar"></i></div></div>
+ <div class="navgroup"><button class="control" id="teacherToggle">Teacher view</button><button class="control" id="fullscreen">⛶</button></div>
+</div>
+<script>
+const questions = [
+ {type:"mc",q:"Which of the following is the standard form of a quadratic function?",o:["f(x) = ax + b","f(x) = ax² + bx + c","f(x) = mx + c","f(x) = ax³ + bx + c"],a:1,e:"The standard form is ax² + bx + c, where a is not zero."},
+ {type:"mc",q:"What is the highest exponent of the variable in a quadratic function?",o:["1","2","3","4"],a:1,e:"A quadratic function has degree 2. The highest exponent is 2."},
+ {type:"mc",q:"Is f(x) = 3x² + 5x + 2 a quadratic function?",o:["Yes","No","It is linear","It is constant"],a:0,e:"Yes. It contains an x² term with a nonzero coefficient."},
+ {type:"mc",q:"What are a, b, and c in f(x) = 2x² + 7x + 4?",o:["a = 2, b = 7, c = 4","a = 7, b = 2, c = 4","a = 2, b = 4, c = 7","a = 4, b = 7, c = 2"],a:0,e:"Match each coefficient to ax² + bx + c: a = 2, b = 7, and c = 4."},
+ {type:"mc",q:"Which of the following is NOT quadratic?",o:["x² + 3x + 1","−2x² + 4x","5x + 8","3x² − 9"],a:2,e:"5x + 8 has a highest exponent of 1, so it is linear."},
+ {type:"mc",q:"Is h(x) = (x + 3)² quadratic?",o:["Yes, because its expanded form contains x².","No, because it has parentheses.","No, because it is linear.","Yes, because it has no constant."],a:0,e:"Expand: (x + 3)² = x² + 6x + 9. The highest exponent is 2."},
+ {type:"mc",q:"What is the expanded form of (x + 4)²?",o:["x² + 4x + 16","x² + 8x + 16","x² + 16x + 4","x² + 8"],a:1,e:"(x + 4)(x + 4) = x² + 4x + 4x + 16 = x² + 8x + 16."},
+ {type:"mc",q:"Can the value of a in a quadratic function be negative?",o:["No","Yes","Only when b = 0","Only when c = 0"],a:1,e:"Yes. The coefficient a may be positive or negative, but it cannot be zero."},
+ {type:"mc",q:"What type of pattern has constant first differences?",o:["Quadratic","Linear","Exponential","Random"],a:1,e:"A linear pattern has equal first differences."},
+ {type:"mc",q:"What type of pattern has constant second differences?",o:["Quadratic","Linear","Constant","Random"],a:0,e:"A quadratic pattern has equal second differences."},
+ {type:"class",q:"Classify: f(x) = 4x² + 3x + 5. If quadratic, identify a, b, and c.",answer:"Quadratic · a = 4, b = 3, c = 5",e:"The highest exponent is 2. Compare with ax² + bx + c."},
+ {type:"class",q:"Classify: g(x) = 6x + 9. If quadratic, identify a, b, and c.",answer:"Not quadratic · Linear",e:"The highest exponent is 1, so this is a linear function."},
+ {type:"class",q:"Classify: h(x) = −x² + 7x + 2. If quadratic, identify a, b, and c.",answer:"Quadratic · a = −1, b = 7, c = 2",e:"The coefficient of x² is −1. A negative a is allowed."},
+ {type:"class",q:"Classify: p(x) = (x + 2)². If quadratic, identify a, b, and c.",answer:"Quadratic · a = 1, b = 4, c = 4",e:"Expand: (x + 2)² = x² + 4x + 4."},
+ {type:"class",q:"Classify: q(x) = 5x³ + 2x + 1. If quadratic, identify a, b, and c.",answer:"Not quadratic · Cubic",e:"The highest exponent is 3, so the function is cubic."},
+ {type:"pattern",q:"Analyze the pattern: 3, 8, 15, 24, 35. Find the first and second differences. Is it quadratic?",answer:"1st differences: 5, 7, 9, 11 · 2nd differences: 2, 2, 2 · Quadratic",e:"The second differences are constant at 2, so the pattern is quadratic."},
+ {type:"pattern",q:"Analyze the pattern: 2, 4, 6, 8, 10. Find the first and second differences. Is it quadratic?",answer:"1st differences: 2, 2, 2, 2 · 2nd differences: 0, 0, 0 · Linear, not quadratic",e:"The first differences are already constant, so the pattern is linear."},
+ {type:"pattern",q:"Analyze the pattern: 2, 6, 12, 20, 30. Find the first and second differences. Is it quadratic?",answer:"1st differences: 4, 6, 8, 10 · 2nd differences: 2, 2, 2 · Quadratic",e:"The second differences are constant at 2, so the pattern is quadratic."},
+ {type:"mc",q:"A student throws a ball into the air. Which type of graph best represents its curved path?",o:["Straight line","Parabola","Horizontal line","Circle"],a:1,e:"A projectile's idealized path is modeled by a quadratic relationship, whose graph is a parabola."},
+ {type:"written",q:"In 2–3 sentences, explain how you can determine if a number pattern is quadratic.",answer:"Find the first differences by subtracting consecutive terms. Then find the second differences. If the second differences are equal, the pattern is quadratic.",e:"Award 2 points for describing how to calculate differences and stating that equal second differences indicate a quadratic pattern."}
+];
+const qRoot=document.getElementById('questionSlides');
+const letters=['A','B','C','D'];
+questions.forEach((q,i)=>{
+ const s=document.createElement('section');s.className='slide';
+ const choices=q.o?`<div class="options">${q.o.map((v,j)=>`<button class="option" data-choice="${j}"><span class="letter">${letters[j]}</span><span>${v}</span></button>`).join('')}</div>`:
+ `<div class="tile"><strong>${q.type==='class'?'Write your classification and coefficients.':q.type==='pattern'?'Show both levels of differences.':'Write your explanation in 2–3 sentences.'}</strong><span>Use your paper or notebook to record your response.</span></div>`;
+ s.innerHTML=`<div class="content"><div class="question-layout"><div><div class="q-number">Question ${i+1} · ${q.type==='mc'?'Multiple choice':q.type==='class'?'Identify and classify':q.type==='pattern'?'Number pattern':'Written response'}</div><h2 class="question">${q.q}</h2>${choices}<div class="feedback" aria-live="polite"></div><div class="reveal"><b>Answer / explanation:</b><br>${q.o?`${letters[q.a]}. ${q.o[q.a]} — `:''}${q.answer? q.answer+' — ':''}${q.e}</div></div><aside class="timer-card"><div class="timer-label">Time remaining</div><div class="timer" data-timer>00:40</div><div class="timer-track"><div class="timer-fill" data-fill></div></div><div class="timer-actions"><button class="small-btn" data-start>Start</button><button class="small-btn" data-reset>Reset</button><button class="small-btn" data-reveal>Reveal</button></div></aside></div></div>`;
+ qRoot.appendChild(s);
+});
+const mcKey=[['1','B','Standard form uses x².'],['2','B','Degree 2.'],['3','A','It contains a nonzero x² term.'],['4','A','a = 2, b = 7, c = 4.'],['5','C','5x + 8 is linear.'],['6','A','It expands to x² + 6x + 9.'],['7','B','The middle terms add to 8x.'],['8','B','a can be negative, but not zero.'],['9','B','Linear patterns have constant first differences.'],['10','A','Quadratic patterns have constant second differences.'],['19','B','The curved path is modeled by a parabola.']];
+document.getElementById('mcAnswers').innerHTML=mcKey.map(x=>`<div class="answer-item"><b>${x[0]}</b><strong>${x[1]}</strong> · ${x[2]}</div>`).join('');
+const slides=[...document.querySelectorAll('.slide')];let current=0;let intervals=new Map();
+const show=(n)=>{current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===current));document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===slides.length-1;document.getElementById('counter').textContent=`${current+1} / ${slides.length}`;document.getElementById('progressBar').style.width=`${(current+1)/slides.length*100}%`;};
+document.getElementById('prev').onclick=()=>show(current-1);
+document.getElementById('next').onclick=()=>show(current+1);
+document.getElementById('fullscreen').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();};
+document.getElementById('teacherToggle').onclick=()=>{const active=slides[current].querySelector('.reveal');if(active)active.classList.toggle('show');else alert('Teacher review is at the end of the slide deck.');};
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}});
+slides.forEach((slide)=>{
+ const timer=slide.querySelector('[data-timer]');if(!timer)return;
+ const start=slide.querySelector('[data-start]'),reset=slide.querySelector('[data-reset]'),reveal=slide.querySelector('[data-reveal]'),fill=slide.querySelector('[data-fill]');
+ let remaining=40,interval=null;
+ const render=()=>{timer.textContent=`${String(Math.floor(remaining/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}`;fill.style.width=`${remaining/40*100}%`;timer.style.color=remaining<=10?'#c9c9c9':'#fff';};
+ start.onclick=()=>{if(interval){clearInterval(interval);interval=null;start.textContent='Resume';return}start.textContent='Pause';interval=setInterval(()=>{remaining=Math.max(0,remaining-1);render();if(remaining===0){clearInterval(interval);interval=null;start.textContent='Time up';}},1000)};
+ reset.onclick=()=>{clearInterval(interval);interval=null;remaining=slide.dataset.duration?Number(slide.dataset.duration):40;start.textContent='Start';render()};
+ reveal.onclick=()=>slide.querySelector('.reveal').classList.toggle('show');
+ slide.querySelectorAll('[data-choice]').forEach(btn=>btn.onclick=()=>{slide.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const qIndex=slides.indexOf(slide)-4;const q=questions[qIndex];const feedback=slide.querySelector('.feedback');if(Number(btn.dataset.choice)===q.a){btn.classList.add('correct');feedback.textContent='Answer selected. You can reveal the explanation after attempting the question.'}else{feedback.textContent='Answer recorded. Review your choice before moving on.'}});
+ render();
+});
+show(0);
+</script>
+</body>
+</html>
